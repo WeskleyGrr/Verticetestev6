@@ -150,7 +150,7 @@ const SHOPEE_SVG = `<svg class="shopee-icon" width="20" height="20" viewBox="0 0
     <path d="M15 11.5c-1-1-5-1.2-5 .8 0 2.2 5 1 5 3.4 0 2-3.7 2.2-5.5.7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
   </svg>`;
 const PLAY_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>';
-const LINKS_MENU = { home: "#home", perfumes: "#perfumes", automotivos: "#automotivos", domiciliar: "#domiciliar", cosmeticos: "#cosmeticos", utencilios: "#utencilios" };
+const LINKS_MENU = { home: "#home", paufurmes: "#perfumes", automotivos: "#automotivos", domiciliar: "#domiciliar", cosmeticos: "#cosmeticos", utencilios: "#utencilios" };
 const linkValido = link => /^https?:\/\//i.test(link);
 const produtosDaPagina = pagina => PAGINAS[pagina].produtos.flatMap(id => PRODUTOS[id] ? [{ id, ...PRODUTOS[id] }] : []);
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
