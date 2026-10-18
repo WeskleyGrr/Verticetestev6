@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vertice Imports — Catálogo</title>
-<meta name="description" content="Catálogo de produtos importados da Vertice Imports: perfumes, paus, domiciliar, cosméticos e utensílios.">
-<meta property="og:title" content="vertice cu — Catálogo">
+<meta name="description" content="Catálogo de produtos importados da Vertice Imports: perfumes, automotivos, domiciliar, cosméticos e utensílios.">
+<meta property="og:title" content="Vertice Imports — Catálogo">
 <meta property="og:description" content="Importados selecionados, entregues até você.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +80,9 @@ body { font-family: var(--font-body); letter-spacing: 0; }
 .carousel-rows { display: flex; flex-direction: column; gap: 32px; }
 .slide-window { overflow: hidden; padding: 14px 10px 24px; margin: -14px -10px -24px; }
 .slide-track { display: flex; width: max-content; }
-.slide-group { display: flex; flex: 0 0 auto; gap: 16px; padding-right: 16px; animation: product-drift 420s linear infinite; will-change: transform; }
+/* VELOCIDADE DO CARROSSEL DA HOME: o número abaixo (55s) é o tempo para uma volta completa.
+   Menor = mais rápido, maior = mais lento. Está 200% mais rápido que a versão anterior (165s). */
+.slide-group { display: flex; flex: 0 0 auto; gap: 16px; padding-right: 16px; animation: product-drift 55s linear infinite; will-change: transform; }
 .slide-group .product-card { width: 224px; flex-shrink: 0; }
 .slide-track.is-paused .slide-group { animation-play-state: paused; }
 .slide-track.is-reversed .slide-group { animation-direction: reverse; }
@@ -91,7 +93,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-
 @media(max-width: 1050px) { .header-inner { flex-direction: column; gap: 14px; } .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 @media(max-width: 600px) { .header-inner { padding: 16px; } .header-nav { justify-content: center; gap: 2px; } .nav-link { padding: 9px 10px; font-size: 12px; } .store-intro { padding: 32px 16px 40px; } .intro-logo { width: 140px; height: 140px; } .store-intro h1 { font-size: 23px; } .store-content { padding: 0 16px 40px; } .section-heading h2 { font-size: 17px; } .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .slide-group .product-card { width: 200px; } }
 @media(prefers-reduced-motion: reduce) { .slide-group { animation: none; will-change: auto; } .slide-window { overflow-x: auto; } .product-card { transition: none; } .product-card:hover, .product-card:focus-within, .product-card.is-selected { transform: none; } }
-@media(prefers-reduced-motion: reduce) { .slide-track.is-motion-enabled .slide-group { animation: product-drift 420s linear infinite; will-change: transform; } .slide-track.is-motion-enabled.is-paused .slide-group { animation-play-state: paused; } }
+@media(prefers-reduced-motion: reduce) { .slide-track.is-motion-enabled .slide-group { animation: product-drift 55s linear infinite; will-change: transform; } .slide-track.is-motion-enabled.is-paused .slide-group { animation-play-state: paused; } }
 @media(prefers-reduced-motion: reduce) { .slide-track.is-motion-enabled.is-reversed .slide-group { animation-direction: reverse; } }
 </style></head>
 <body><div id="app"></div>
@@ -100,45 +102,231 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-
 // EDITE OS PRODUTOS, PÁGINAS E LINKS ABAIXO.
 // Este arquivo funciona sozinho, até aberto no computador.
 // ================================================================
-const PRODUTOS = {
-  1: { "nome": "Meu cu1", "preco": "R$ 90,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_01", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_01" },
-  2: { "nome": "Produto 02", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_02", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_02" },
-  3: { "nome": "Produto 03", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_03", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_03" },
-  4: { "nome": "Produto 04", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_04", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_04" },
-  5: { "nome": "Produto 05", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_05", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_05" },
-  6: { "nome": "Produto 06", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_06", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_06" },
-  7: { "nome": "Produto 07", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_07", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_07" },
-  8: { "nome": "Produto 08", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_08", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_08" },
-  9: { "nome": "Produto 09", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_09", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_09" },
-  10: { "nome": "Produto 10", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_10", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_10" },
-  11: { "nome": "Produto 11", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_11", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_11" },
-  12: { "nome": "Produto 12", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_12", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_12" },
-  13: { "nome": "Produto 13", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_13", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_13" },
-  14: { "nome": "Produto 14", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_14", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_14" },
-  15: { "nome": "Produto 15", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_15", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_15" },
-  16: { "nome": "Produto 16", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_16", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_16" },
-  17: { "nome": "Produto 17", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_17", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_17" },
-  18: { "nome": "Produto 18", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_18", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_18" },
-  19: { "nome": "Produto 19", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_19", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_19" },
-  20: { "nome": "Produto 20", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_20", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_20" },
-  21: { "nome": "Produto 21", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_21", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_21" },
-  22: { "nome": "Produto 22", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_22", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_22" },
-  23: { "nome": "Produto 23", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_23", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_23" },
-  24: { "nome": "Produto 24", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_24", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_24" },
-  25: { "nome": "Produto 25", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_25", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_25" },
-  26: { "nome": "Produto 26", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_26", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_26" },
-  27: { "nome": "Produto 27", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_27", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_27" },
-  28: { "nome": "Produto 28", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_28", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_28" },
-  29: { "nome": "Produto 29", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_29", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_29" },
-  30: { "nome": "Produto 30", "preco": "R$ 0,00", "mercadolivre": "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE_30", "shopee": "COLE_AQUI_O_LINK_DA_SHOPEE_30" },
-};
+// Cada página tem a SUA PRÓPRIA lista de 30 produtos.
+// Alterar um produto de uma página NÃO altera as outras.
+// Para trocar a foto, adicione:  imagem: "LINK_DA_FOTO"
 const PAGINAS = {
-  home: { menu: "Home", titulo: "VERTICE doidos", descricao: "Importados paus, entregues até você.", produtos: Object.keys(PRODUTOS).map(Number) },
-  paufumes: { menu: "cufumes", titulo: "CUFUMES", descricao: "", produtos: Object.keys(PRODUTOS).map(Number) },
-  automotivos: { menu: "Automotivos", titulo: "AUTOMOTIVOS", descricao: "", produtos: Object.keys(PRODUTOS).map(Number) },
-  domiciliar: { menu: "Domiciliar", titulo: "DOMICILIAR", descricao: "", produtos: Object.keys(PRODUTOS).map(Number) },
-  cosmeticos: { menu: "Cosméticos", titulo: "COSMÉTICOS", descricao: "", produtos: Object.keys(PRODUTOS).map(Number) },
-  utencilios: { menu: "Utencílios", titulo: "UTENCÍLIOS", descricao: "", produtos: Object.keys(PRODUTOS).map(Number) },
+
+  // ==================== PÁGINA: HOME ====================
+  // A Home tem 5 LISTAS (fileiras que rolam na tela).
+  // Cada lista tem o SEU bloco, com 5 produtos. Trocar uma lista NÃO mexe nas outras.
+  home: { menu: "Home", titulo: "VERTICE IMPORTS", descricao: "Importados selecionados, entregues até você.", listas: [
+
+    // ---------- HOME: LISTA 1 ----------
+    [
+    { nome: "Home - Lista 1 - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L1 01
+    { nome: "Home - Lista 1 - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L1 02
+    { nome: "Home - Lista 1 - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L1 03
+    { nome: "Home - Lista 1 - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L1 04
+    { nome: "Home - Lista 1 - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L1 05
+    ],
+
+    // ---------- HOME: LISTA 2 ----------
+    [
+    { nome: "Home - Lista 2 - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L2 01
+    { nome: "Home - Lista 2 - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L2 02
+    { nome: "Home - Lista 2 - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L2 03
+    { nome: "Home - Lista 2 - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L2 04
+    { nome: "Home - Lista 2 - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L2 05
+    ],
+
+    // ---------- HOME: LISTA 3 ----------
+    [
+    { nome: "Home - Lista 3 - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L3 01
+    { nome: "Home - Lista 3 - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L3 02
+    { nome: "Home - Lista 3 - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L3 03
+    { nome: "Home - Lista 3 - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L3 04
+    { nome: "Home - Lista 3 - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L3 05
+    ],
+
+    // ---------- HOME: LISTA 4 ----------
+    [
+    { nome: "Home - Lista 4 - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L4 01
+    { nome: "Home - Lista 4 - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L4 02
+    { nome: "Home - Lista 4 - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L4 03
+    { nome: "Home - Lista 4 - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L4 04
+    { nome: "Home - Lista 4 - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L4 05
+    ],
+
+    // ---------- HOME: LISTA 5 ----------
+    [
+    { nome: "Home - Lista 5 - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L5 01
+    { nome: "Home - Lista 5 - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L5 02
+    { nome: "Home - Lista 5 - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L5 03
+    { nome: "Home - Lista 5 - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L5 04
+    { nome: "Home - Lista 5 - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Home L5 05
+    ]
+  ] },
+
+  // ==================== PÁGINA: PERFUMES ====================
+  perfumes: { menu: "Perfumes", titulo: "PERFUMES", descricao: "", produtos: [
+    { nome: "Perfumes - Mounjaro", preco: "R$ 100,00", imagem: "https://i.postimg.cc/5934p0zR/Perfume-Bleu-de-Chanel-em-Estudio.png", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 01
+    { nome: "Perfumes - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 02
+    { nome: "Perfumes - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 03
+    { nome: "Perfumes - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 04
+    { nome: "Perfumes - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 05
+    { nome: "Perfumes - Produto 06", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 06
+    { nome: "Perfumes - Produto 07", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 07
+    { nome: "Perfumes - Produto 08", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 08
+    { nome: "Perfumes - Produto 09", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 09
+    { nome: "Perfumes - Produto 10", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 10
+    { nome: "Perfumes - Produto 11", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 11
+    { nome: "Perfumes - Produto 12", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 12
+    { nome: "Perfumes - Produto 13", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 13
+    { nome: "Perfumes - Produto 14", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 14
+    { nome: "Perfumes - Produto 15", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 15
+    { nome: "Perfumes - Produto 16", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 16
+    { nome: "Perfumes - Produto 17", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 17
+    { nome: "Perfumes - Produto 18", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 18
+    { nome: "Perfumes - Produto 19", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 19
+    { nome: "Perfumes - Produto 20", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 20
+    { nome: "Perfumes - Produto 21", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 21
+    { nome: "Perfumes - Produto 22", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 22
+    { nome: "Perfumes - Produto 23", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 23
+    { nome: "Perfumes - Produto 24", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 24
+    { nome: "Perfumes - Produto 25", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 25
+    { nome: "Perfumes - Produto 26", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 26
+    { nome: "Perfumes - Produto 27", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 27
+    { nome: "Perfumes - Produto 28", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 28
+    { nome: "Perfumes - Produto 29", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 29
+    { nome: "Perfumes - Produto 30", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Perfumes 30
+  ] },
+
+  // ==================== PÁGINA: AUTOMOTIVOS ====================
+  automotivos: { menu: "Automotivos", titulo: "AUTOMOTIVOS", descricao: "", produtos: [
+    { nome: "Automotivos - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 01
+    { nome: "Automotivos - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 02
+    { nome: "Automotivos - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 03
+    { nome: "Automotivos - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 04
+    { nome: "Automotivos - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 05
+    { nome: "Automotivos - Produto 06", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 06
+    { nome: "Automotivos - Produto 07", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 07
+    { nome: "Automotivos - Produto 08", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 08
+    { nome: "Automotivos - Produto 09", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 09
+    { nome: "Automotivos - Produto 10", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 10
+    { nome: "Automotivos - Produto 11", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 11
+    { nome: "Automotivos - Produto 12", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 12
+    { nome: "Automotivos - Produto 13", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 13
+    { nome: "Automotivos - Produto 14", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 14
+    { nome: "Automotivos - Produto 15", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 15
+    { nome: "Automotivos - Produto 16", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 16
+    { nome: "Automotivos - Produto 17", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 17
+    { nome: "Automotivos - Produto 18", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 18
+    { nome: "Automotivos - Produto 19", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 19
+    { nome: "Automotivos - Produto 20", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 20
+    { nome: "Automotivos - Produto 21", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 21
+    { nome: "Automotivos - Produto 22", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 22
+    { nome: "Automotivos - Produto 23", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 23
+    { nome: "Automotivos - Produto 24", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 24
+    { nome: "Automotivos - Produto 25", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 25
+    { nome: "Automotivos - Produto 26", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 26
+    { nome: "Automotivos - Produto 27", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 27
+    { nome: "Automotivos - Produto 28", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 28
+    { nome: "Automotivos - Produto 29", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 29
+    { nome: "Automotivos - Produto 30", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Automotivos 30
+  ] },
+
+  // ==================== PÁGINA: DOMICILIAR ====================
+  domiciliar: { menu: "Domiciliar", titulo: "DOMICILIAR", descricao: "", produtos: [
+    { nome: "Domiciliar - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 01
+    { nome: "Domiciliar - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 02
+    { nome: "Domiciliar - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 03
+    { nome: "Domiciliar - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 04
+    { nome: "Domiciliar - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 05
+    { nome: "Domiciliar - Produto 06", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 06
+    { nome: "Domiciliar - Produto 07", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 07
+    { nome: "Domiciliar - Produto 08", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 08
+    { nome: "Domiciliar - Produto 09", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 09
+    { nome: "Domiciliar - Produto 10", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 10
+    { nome: "Domiciliar - Produto 11", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 11
+    { nome: "Domiciliar - Produto 12", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 12
+    { nome: "Domiciliar - Produto 13", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 13
+    { nome: "Domiciliar - Produto 14", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 14
+    { nome: "Domiciliar - Produto 15", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 15
+    { nome: "Domiciliar - Produto 16", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 16
+    { nome: "Domiciliar - Produto 17", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 17
+    { nome: "Domiciliar - Produto 18", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 18
+    { nome: "Domiciliar - Produto 19", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 19
+    { nome: "Domiciliar - Produto 20", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 20
+    { nome: "Domiciliar - Produto 21", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 21
+    { nome: "Domiciliar - Produto 22", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 22
+    { nome: "Domiciliar - Produto 23", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 23
+    { nome: "Domiciliar - Produto 24", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 24
+    { nome: "Domiciliar - Produto 25", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 25
+    { nome: "Domiciliar - Produto 26", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 26
+    { nome: "Domiciliar - Produto 27", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 27
+    { nome: "Domiciliar - Produto 28", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 28
+    { nome: "Domiciliar - Produto 29", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 29
+    { nome: "Domiciliar - Produto 30", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Domiciliar 30
+  ] },
+
+  // ==================== PÁGINA: COSMÉTICOS ====================
+  cosmeticos: { menu: "Cosméticos", titulo: "COSMÉTICOS", descricao: "", produtos: [
+    { nome: "Cosméticos - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 01
+    { nome: "Cosméticos - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 02
+    { nome: "Cosméticos - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 03
+    { nome: "Cosméticos - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 04
+    { nome: "Cosméticos - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 05
+    { nome: "Cosméticos - Produto 06", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 06
+    { nome: "Cosméticos - Produto 07", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 07
+    { nome: "Cosméticos - Produto 08", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 08
+    { nome: "Cosméticos - Produto 09", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 09
+    { nome: "Cosméticos - Produto 10", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 10
+    { nome: "Cosméticos - Produto 11", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 11
+    { nome: "Cosméticos - Produto 12", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 12
+    { nome: "Cosméticos - Produto 13", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 13
+    { nome: "Cosméticos - Produto 14", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 14
+    { nome: "Cosméticos - Produto 15", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 15
+    { nome: "Cosméticos - Produto 16", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 16
+    { nome: "Cosméticos - Produto 17", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 17
+    { nome: "Cosméticos - Produto 18", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 18
+    { nome: "Cosméticos - Produto 19", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 19
+    { nome: "Cosméticos - Produto 20", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 20
+    { nome: "Cosméticos - Produto 21", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 21
+    { nome: "Cosméticos - Produto 22", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 22
+    { nome: "Cosméticos - Produto 23", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 23
+    { nome: "Cosméticos - Produto 24", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 24
+    { nome: "Cosméticos - Produto 25", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 25
+    { nome: "Cosméticos - Produto 26", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 26
+    { nome: "Cosméticos - Produto 27", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 27
+    { nome: "Cosméticos - Produto 28", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 28
+    { nome: "Cosméticos - Produto 29", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 29
+    { nome: "Cosméticos - Produto 30", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Cosméticos 30
+  ] },
+
+  // ==================== PÁGINA: UTENCÍLIOS ====================
+  utencilios: { menu: "Utencílios", titulo: "UTENCÍLIOS", descricao: "", produtos: [
+    { nome: "Utencílios - Produto 01", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 01
+    { nome: "Utencílios - Produto 02", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 02
+    { nome: "Utencílios - Produto 03", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 03
+    { nome: "Utencílios - Produto 04", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 04
+    { nome: "Utencílios - Produto 05", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 05
+    { nome: "Utencílios - Produto 06", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 06
+    { nome: "Utencílios - Produto 07", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 07
+    { nome: "Utencílios - Produto 08", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 08
+    { nome: "Utencílios - Produto 09", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 09
+    { nome: "Utencílios - Produto 10", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 10
+    { nome: "Utencílios - Produto 11", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 11
+    { nome: "Utencílios - Produto 12", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 12
+    { nome: "Utencílios - Produto 13", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 13
+    { nome: "Utencílios - Produto 14", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 14
+    { nome: "Utencílios - Produto 15", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 15
+    { nome: "Utencílios - Produto 16", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 16
+    { nome: "Utencílios - Produto 17", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 17
+    { nome: "Utencílios - Produto 18", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 18
+    { nome: "Utencílios - Produto 19", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 19
+    { nome: "Utencílios - Produto 20", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 20
+    { nome: "Utencílios - Produto 21", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 21
+    { nome: "Utencílios - Produto 22", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 22
+    { nome: "Utencílios - Produto 23", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 23
+    { nome: "Utencílios - Produto 24", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 24
+    { nome: "Utencílios - Produto 25", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 25
+    { nome: "Utencílios - Produto 26", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 26
+    { nome: "Utencílios - Produto 27", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 27
+    { nome: "Utencílios - Produto 28", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 28
+    { nome: "Utencílios - Produto 29", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 29
+    { nome: "Utencílios - Produto 30", preco: "R$ 0,00", imagem: "", mercadolivre: "COLE_AQUI_O_LINK_DO_MERCADO_LIVRE", shopee: "COLE_AQUI_O_LINK_DA_SHOPEE" }, // Utencílios 30
+  ] },
 };
 const LINKS_TOPO = { contato: "", catalogo: "" };
 const CARROSSEIS_HOME = ["esquerda", "direita", "esquerda", "direita", "esquerda"];
@@ -150,9 +338,11 @@ const SHOPEE_SVG = `<svg class="shopee-icon" width="20" height="20" viewBox="0 0
     <path d="M15 11.5c-1-1-5-1.2-5 .8 0 2.2 5 1 5 3.4 0 2-3.7 2.2-5.5.7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
   </svg>`;
 const PLAY_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>';
-const LINKS_MENU = { home: "#home", paufurmes: "#perfumes", cumotivoss: "#cumotivos", domiciliar: "#domiciliar", cosmeticos: "#cosmeticos", utencilios: "#utencilios" };
+const LINKS_MENU = { home: "#home", perfumes: "#perfumes", automotivos: "#automotivos", domiciliar: "#domiciliar", cosmeticos: "#cosmeticos", utencilios: "#utencilios" };
 const linkValido = link => /^https?:\/\//i.test(link);
-const produtosDaPagina = pagina => PAGINAS[pagina].produtos.flatMap(id => PRODUTOS[id] ? [{ id, ...PRODUTOS[id] }] : []);
+const produtosDaPagina = pagina => (PAGINAS[pagina].produtos || []).map((p, i) => ({ id: i + 1, ...p }));
+// Cada fileira da Home usa os produtos da SUA própria lista (lista 1, lista 2, ...).
+const listasDaHome = pagina => (PAGINAS[pagina].listas || []).map((lista, r) => lista.map((p, i) => ({ id: (r + 1) * 100 + i + 1, ...p })));
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 let selected = null, enabled = false;
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
@@ -200,6 +390,7 @@ function render() {
   const config = PAGINAS[pagina];
   const produtos = produtosDaPagina(pagina);
   const home = pagina === "home";
+  const listas = home ? listasDaHome(pagina) : [];
   const nav = Object.keys(PAGINAS).map(k => `<a class="nav-link" data-status="${k === pagina ? "active" : ""}" href="${LINKS_MENU[k]}">${esc(PAGINAS[k].menu)}</a>`).join("");
   const contato = linkValido(LINKS_TOPO.contato)
     ? `<a class="action" href="${esc(LINKS_TOPO.contato)}" target="_blank" rel="noopener noreferrer">Fale conosco</a>`
@@ -208,7 +399,8 @@ function render() {
     ? `<a class="action outline" href="${esc(LINKS_TOPO.catalogo)}" target="_blank" rel="noopener noreferrer">Visite nosso catálogo</a>`
     : `<a class="action outline" href="#produtos">Visite nosso catálogo</a>`;
   const rows = home
-    ? `<div class="carousel-rows">${CARROSSEIS_HOME.map((d, i) => `<div class="slide-window" role="region" aria-label="Demonstração de produtos ${i + 1}"><div class="slide-track${d === "direita" ? " is-reversed" : ""}${selected !== null ? " is-paused" : ""}${enabled ? " is-motion-enabled" : ""}">${[0, 1].map(() => `<div class="slide-group">${produtos.map(p => card(p, true)).join("")}</div>`).join("")}</div></div>`).join("")}</div>`
+    ? listas.length ? `<div class="carousel-rows">${listas.map((lista, i) => `<div class="slide-window" role="region" aria-label="Lista de produtos ${i + 1}"><div class="slide-track${CARROSSEIS_HOME[i] === "direita" ? " is-reversed" : ""}${selected !== null ? " is-paused" : ""}${enabled ? " is-motion-enabled" : ""}">${[0, 1].map(() => `<div class="slide-group">${lista.map(p => card(p, true)).join("")}</div>`).join("")}</div></div>`).join("")}</div>`
+      : `<div class="empty-category">Nenhum produto nesta categoria no momento.</div>`
     : produtos.length ? `<div class="product-grid">${produtos.map(p => card(p, false)).join("")}</div>`
     : `<div class="empty-category">Nenhum produto nesta categoria no momento.</div>`;
 
